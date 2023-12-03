@@ -6,6 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -18,6 +19,9 @@ public class CalculatorServiceTest {
     @Mock//가짜 객체를 만들고 싶은게 있을때 사용 //껍데기 객체
     CalculatorRepository calculatorRepository;
 
+    @InjectMocks// 각자 객체를 만든것들을 주입 받을때 사용
+    CalculatorService calculatorService;
+
     @Nested// 폴더형식처럼 관리하여 확인할 수 있다.
     @DisplayName("덧셈")
     class AddFonction {
@@ -29,16 +33,11 @@ public class CalculatorServiceTest {
             int num2 = 5;
 
             // when
-            CalculatorService calculatorService = new CalculatorService(calculatorRepository);
             int result = calculatorService.add(num1, num2);
 
             // then
             assertThat(result).isEqualTo(220000005);
-            // 결과로 어떤값이 올건지 예측하는것.
-            // 제대로 동작 안하는것 확인
-            // 성공 되는것 확인
         }
-
     }
 
     @Nested
@@ -51,7 +50,6 @@ public class CalculatorServiceTest {
             int num1 = 20;
             int num2 = 5;
 
-            CalculatorService calculatorService = new CalculatorService(calculatorRepository);
             int result = calculatorService.subtract(num1, num2);
 
             assertThat(result).isEqualTo(15);
@@ -63,9 +61,6 @@ public class CalculatorServiceTest {
             int num1 = 5;
             int num2 = 10;
 
-            // 5 - 10 : 5
-
-            CalculatorService calculatorService = new CalculatorService(calculatorRepository);
             int result = calculatorService.subtract(num1, num2);
 
             assertThat(result).isEqualTo(5);
@@ -82,8 +77,6 @@ public class CalculatorServiceTest {
             double num1 = 10;
             double num2 = 5;
 
-
-            CalculatorService calculatorService = new CalculatorService(calculatorRepository);
             double result = calculatorService.divide(num1, num2);
 
             assertThat(result).isEqualTo(2);
@@ -95,7 +88,6 @@ public class CalculatorServiceTest {
             double num1 = 5;
             double num2 = 3;
 
-            CalculatorService calculatorService = new CalculatorService(calculatorRepository);
             double result = calculatorService.divide(num1, num2);
 
             assertThat(result).isEqualTo(1.67);
@@ -107,14 +99,10 @@ public class CalculatorServiceTest {
             double num1 = 5;
             double num2 = 0;
 
-            CalculatorService calculatorService = new CalculatorService(calculatorRepository);
-
             assertThatThrownBy(() ->
                     calculatorService.divide(num1, num2)
             ).isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("분모에 0이 있으면 안됩니다.");
         }
-
     }
-
 }
