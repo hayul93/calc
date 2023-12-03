@@ -1,11 +1,19 @@
 package com.example.calc.service;
 
+import com.example.calc.repository.CalculatorRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class CalculatorService {
+
+    private final CalculatorRepository calculatorRepository;
+
     public int add(int num1, int num2) {
-        return num1 + num2;
+        int result = num1 + num2;
+        calculatorRepository.addResult(result);
+        return result;
     }
 
     public int subtract(int num1, int num2) {

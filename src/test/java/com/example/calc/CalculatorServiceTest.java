@@ -1,5 +1,6 @@
 package com.example.calc;
 
+import com.example.calc.repository.CalculatorRepository;
 import com.example.calc.service.CalculatorService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -9,14 +10,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-@SpringBootTest//통합테스트 할떄 사용 //모든 bean들을 등록해서 실행됨.
+
 public class CalculatorServiceTest {
 
-    // 덧셈 기능
-    // int, int
-    //
 
-    // TDD로 작성시 좋은 구조로 아키텍쳐를 만들 수 있다.
     @Nested// 폴더형식처럼 관리하여 확인할 수 있다.
     @DisplayName("덧셈")
     class AddFonction {
@@ -28,7 +25,7 @@ public class CalculatorServiceTest {
             int num2 = 5;
 
             // when
-            CalculatorService calculatorService = new CalculatorService();
+            CalculatorService calculatorService = new CalculatorService(new CalculatorRepository());
             int result = calculatorService.add(num1, num2);
 
             // then
@@ -50,7 +47,7 @@ public class CalculatorServiceTest {
             int num1 = 20;
             int num2 = 5;
 
-            CalculatorService calculatorService = new CalculatorService();
+            CalculatorService calculatorService = new CalculatorService(new CalculatorRepository());
             int result = calculatorService.subtract(num1, num2);
 
             assertThat(result).isEqualTo(15);
@@ -64,7 +61,7 @@ public class CalculatorServiceTest {
 
             // 5 - 10 : 5
 
-            CalculatorService calculatorService = new CalculatorService();
+            CalculatorService calculatorService = new CalculatorService(new CalculatorRepository());
             int result = calculatorService.subtract(num1, num2);
 
             assertThat(result).isEqualTo(5);
@@ -82,7 +79,7 @@ public class CalculatorServiceTest {
             double num2 = 5;
 
 
-            CalculatorService calculatorService = new CalculatorService();
+            CalculatorService calculatorService = new CalculatorService(new CalculatorRepository());
             double result = calculatorService.divide(num1, num2);
 
             assertThat(result).isEqualTo(2);
@@ -94,7 +91,7 @@ public class CalculatorServiceTest {
             double num1 = 5;
             double num2 = 3;
 
-            CalculatorService calculatorService = new CalculatorService();
+            CalculatorService calculatorService = new CalculatorService(new CalculatorRepository());
             double result = calculatorService.divide(num1, num2);
 
             assertThat(result).isEqualTo(1.67);
@@ -106,7 +103,7 @@ public class CalculatorServiceTest {
             double num1 = 5;
             double num2 = 0;
 
-            CalculatorService calculatorService = new CalculatorService();
+            CalculatorService calculatorService = new CalculatorService(new CalculatorRepository());
 
             assertThatThrownBy(() ->
                     calculatorService.divide(num1, num2)
