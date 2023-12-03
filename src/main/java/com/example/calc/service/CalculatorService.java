@@ -1,5 +1,6 @@
 package com.example.calc.service;
 
+import com.example.calc.entity.Post;
 import com.example.calc.repository.CalculatorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,8 @@ public class CalculatorService {
 
     public int add(int num1, int num2) {
         int result = num1 + num2;
-        calculatorRepository.addResult(result);
+        Post post = new Post();
+        calculatorRepository.addResult(post);
         return result;
     }
 

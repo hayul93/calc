@@ -1,5 +1,6 @@
 package com.example.calc;
 
+import com.example.calc.entity.Post;
 import com.example.calc.repository.CalculatorRepository;
 import com.example.calc.service.CalculatorService;
 import org.junit.jupiter.api.DisplayName;
@@ -12,6 +13,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)//확장 라이브러리 사용 할 떄 사용
 public class CalculatorServiceTest {
@@ -29,14 +32,22 @@ public class CalculatorServiceTest {
         @DisplayName("덧셈 성공")
         void addSuccess() {
             // given
-            int num1 = 220000000;
+            int num1 = 10;
             int num2 = 5;
+            int save = 15;
+
+            Post post = new Post();
+
+            //stubbing 방식
+            //객체를 이용한 주소값이 달라 오류가 생길때.. 우회 any()
+            given(calculatorRepository.addResult(any()))
+                    .willReturn(post);
 
             // when
             int result = calculatorService.add(num1, num2);
 
             // then
-            assertThat(result).isEqualTo(220000005);
+            assertThat(result).isEqualTo(15);
         }
     }
 

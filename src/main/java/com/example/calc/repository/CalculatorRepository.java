@@ -9,7 +9,8 @@ import java.util.List;
 public class CalculatorRepository {
     List<Object> operateHistory = new ArrayList<>();
 
-    public void addResult(Object result) {
+    public Object addResult(Object result) {
         this.operateHistory.add(result);
+        return result;
     }
 }
